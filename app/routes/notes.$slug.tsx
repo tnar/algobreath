@@ -5,7 +5,7 @@ import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js/lib/common";
 import invariant from "tiny-invariant";
-import { getPost } from "~/models/post.server";
+import { getNote } from "~/models/note.server";
 import styles from "highlight.js/styles/github-dark-dimmed.min.css";
 
 export const links: LinksFunction = () => {
@@ -14,8 +14,8 @@ export const links: LinksFunction = () => {
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   invariant(params.slug, "params.slug is required");
-  const post = await getPost(context, params.slug);
-  invariant(post, `Post not found: ${params.slug}`);
+  const note = await getNote(context, params.slug);
+  invariant(note, `Note not found: ${params.slug}`);
 
   const marked = new Marked(
     markedHighlight({
@@ -27,15 +27,15 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
     })
   );
 
-  const html = marked.parse(post.markdown);
-  return json({ post, html });
+  const html = marked.parse(note.markdown);
+  return json({ title: note.title, html });
 };
 
-export default function PostSlug() {
-  const { post, html } = useLoaderData<typeof loader>();
+export default function NotesSlug() {
+  const { title, html } = useLoaderData<typeof loader>();
   return (
     <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words">
-      <h1>{post.title}</h1>
+      <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );

@@ -12,7 +12,7 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { deletePost, getPost, createPost } from "~/models/post.server";
+import { deleteNote, getNote, createNote } from "~/models/note.server";
 import React, { useEffect, useState } from "react";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
@@ -35,10 +35,10 @@ export const links: LinksFunction = () => {
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   invariant(params.slug, "params.slug is required");
-  const post = await getPost(context, params.slug);
-  invariant(post, `Post not found: ${params.slug}`);
+  const note = await getNote(context, params.slug);
+  invariant(note, `Note not found: ${params.slug}`);
 
-  return json({ post });
+  return json({ note });
 };
 
 export const action = async ({ request, context }: ActionFunctionArgs) => {
@@ -46,8 +46,8 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 
   if (formData.get("_action") === "delete") {
     const slug = formData.get("slug") as string;
-    await deletePost(context, slug);
-    return redirect("/posts/admin"); // Redirect after deletion
+    await deleteNote(context, slug);
+    return redirect("/notes/admin"); // Redirect after deletion
   }
 
   const title = formData.get("title") as string;
@@ -68,31 +68,31 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
   invariant(typeof slug === "string", "slug must be a string");
   invariant(typeof markdown === "string", "markdown must be a string");
 
-  await createPost(context, { title, slug, markdown });
+  await createNote(context, { title, slug, markdown });
 
-  return redirect("/posts/admin");
+  return redirect("/notes/admin");
 };
 
-export default function NewPost() {
-  const { post } = useLoaderData<typeof loader>();
+export default function NotesAdminSlug() {
+  const { note } = useLoaderData<typeof loader>();
   const errors = useActionData<typeof action>();
 
   // Initialize state for each input
-  const [title, setTitle] = useState(post.title);
-  const [slug, setSlug] = useState(post.slug);
-  const [markdown, setMarkdown] = useState(post.markdown);
+  const [title, setTitle] = useState(note.title);
+  const [slug, setSlug] = useState(note.slug);
+  const [markdown, setMarkdown] = useState(note.markdown);
 
-  const initialHtml = marked.parse(post.markdown);
+  const initialHtml = marked.parse(note.markdown);
   const [convertedHtml, setConvertedHtml] = useState(initialHtml);
 
-  // Update the state when the post changes
+  // Update the state when the note changes
   useEffect(() => {
-    setTitle(post.title);
-    setSlug(post.slug);
-    setMarkdown(post.markdown);
-    const initialHtml = marked.parse(post.markdown);
+    setTitle(note.title);
+    setSlug(note.slug);
+    setMarkdown(note.markdown);
+    const initialHtml = marked.parse(note.markdown);
     setConvertedHtml(initialHtml);
-  }, [post]); // Only re-run the effect if the post data changes
+  }, [note]); // Only re-run the effect if the note data changes
 
   // Change handlers
   const handleTitleChange = (e: {
@@ -120,7 +120,7 @@ export default function NewPost() {
       <Form method="post" className="px-5">
         <p>
           <label>
-            Post Title:{" "}
+            Note Title:{" "}
             {errors?.title ? (
               <em className="text-red-600">{errors.title}</em>
             ) : null}
@@ -135,7 +135,7 @@ export default function NewPost() {
         </p>
         <p>
           <label>
-            Post Slug:{" "}
+            Note Slug:{" "}
             {errors?.slug ? (
               <em className="text-red-600">{errors.slug}</em>
             ) : null}
@@ -171,7 +171,7 @@ export default function NewPost() {
             className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400 disabled:bg-blue-300"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Creating..." : "Create Post"}
+            {isSubmitting ? "Creating..." : "Create Note"}
           </button>
           <button
             type="submit"
@@ -180,14 +180,14 @@ export default function NewPost() {
             className="rounded bg-red-500 py-2 px-4 text-white hover:bg-red-600 focus:bg-red-400 disabled:bg-red-300"
             disabled={isSubmitting}
             onClick={(event) => {
-              if (!confirm("Are you sure you want to delete this post?")) {
+              if (!confirm("Are you sure you want to delete this note?")) {
                 if (event) {
                   event.preventDefault();
                 }
               }
             }}
           >
-            Delete Post
+            Delete Note
           </button>
         </p>
       </Form>

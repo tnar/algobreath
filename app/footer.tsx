@@ -85,7 +85,7 @@ export default function Index() {
       </footer>
       <footer className="footer footer-center pb-24 text-base-content">
         <aside>
-          <p>© 2023 Tsutomu Narushima</p>
+          <p>© 2024 Tsutomu Narushima</p>
         </aside>
       </footer>
     </>

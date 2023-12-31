@@ -2,7 +2,7 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { LinksFunction, json, redirect } from "@remix-run/cloudflare";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { createPost } from "~/models/post.server";
+import { createNote } from "~/models/note.server";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js/lib/common";
@@ -44,15 +44,15 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
   invariant(typeof slug === "string", "slug must be a string");
   invariant(typeof markdown === "string", "markdown must be a string");
 
-  await createPost(context, { title, slug, markdown });
+  await createNote(context, { title, slug, markdown });
 
-  return redirect("/posts/admin");
+  return redirect("/notes/admin");
 };
 
 const inputClassName =
   "w-full rounded border border-gray-500 px-2 py-1 text-lg";
 
-export default function NewPost() {
+export default function NotesAdminNew() {
   const errors = useActionData<typeof action>();
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
@@ -90,7 +90,7 @@ export default function NewPost() {
       <Form method="post" className="px-5">
         <p>
           <label>
-            Post Title:{" "}
+            Note Title:{" "}
             {errors?.title ? (
               <em className="text-red-600">{errors.title}</em>
             ) : null}
@@ -105,7 +105,7 @@ export default function NewPost() {
         </p>
         <p>
           <label>
-            Post Slug:{" "}
+            Note Slug:{" "}
             {errors?.slug ? (
               <em className="text-red-600">{errors.slug}</em>
             ) : null}
@@ -140,7 +140,7 @@ export default function NewPost() {
             className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400 disabled:bg-blue-300"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Creating..." : "Create Post"}
+            {isSubmitting ? "Creating..." : "Create Note"}
           </button>
         </p>
       </Form>

@@ -11,8 +11,8 @@ export default function Index() {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
         <div>
-          <Link to="/posts" className="link">
-            Recent Posts
+          <Link to="/notes" className="link">
+            Recent Notes
           </Link>
         </div>
       </div>

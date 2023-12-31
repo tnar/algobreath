@@ -1,17 +1,17 @@
 import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import { getPosts } from "~/models/post.server";
+import { getNotes } from "~/models/note.server";
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  return json({ posts: await getPosts(context) });
+  return json({ notes: await getNotes(context) });
 };
 
-export default function PostAdmin() {
-  const { posts } = useLoaderData<typeof loader>();
+export default function Notes() {
+  const { notes } = useLoaderData<typeof loader>();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
+      <div className="drawer-content flex flex-col items-center">
         {/* Page content here */}
         <Outlet />
         <label
@@ -29,14 +29,9 @@ export default function PostAdmin() {
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
-          <li>
-            <Link to="new" className="link">
-              Create a New Post
-            </Link>
-          </li>
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <Link to={post.slug}>{post.title}</Link>
+          {notes.map((note) => (
+            <li key={note.slug}>
+              <Link to={note.slug}>{note.title}</Link>
             </li>
           ))}
         </ul>
