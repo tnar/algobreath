@@ -3,10 +3,10 @@ import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/common";
 import invariant from "tiny-invariant";
 import { getPost } from "~/models/post.server";
-import styles from "highlight.js/styles/github-dark-dimmed.css";
+import styles from "highlight.js/styles/github-dark-dimmed.min.css";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];

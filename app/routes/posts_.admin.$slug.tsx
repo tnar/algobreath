@@ -16,8 +16,8 @@ import { deletePost, getPost, createPost } from "~/models/post.server";
 import React, { useEffect, useState } from "react";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js";
-import styles from "highlight.js/styles/github-dark-dimmed.css";
+import hljs from "highlight.js/lib/common";
+import styles from "highlight.js/styles/github-dark-dimmed.min.css";
 
 const marked = new Marked(
   markedHighlight({

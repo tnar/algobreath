@@ -5,8 +5,8 @@ import invariant from "tiny-invariant";
 import { createPost } from "~/models/post.server";
 import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js";
-import styles from "highlight.js/styles/github-dark-dimmed.css";
+import hljs from "highlight.js/lib/common";
+import styles from "highlight.js/styles/github-dark-dimmed.min.css";
 import { useState } from "react";
 
 const marked = new Marked(
