@@ -61,8 +61,12 @@ export default function NotesAdminNew() {
   const isSubmitting = Boolean(navigation.state === "submitting");
 
   // Function to convert title to slug
+
   const titleToSlug = (title: string) => {
-    return title.toLowerCase().replace(/\s+/g, "-");
+    return title
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

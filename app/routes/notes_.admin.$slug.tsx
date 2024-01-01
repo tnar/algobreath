@@ -192,7 +192,7 @@ export default function NotesAdminSlug() {
         </p>
       </Form>
       <div
-        className="prose prose-code:whitespace-pre-wrap prose-code:break-words"
+        className="prose prose-code:whitespace-pre-wrap prose-code:break-words px-3 sm:px-0"
         dangerouslySetInnerHTML={{ __html: convertedHtml }}
       />
     </div>

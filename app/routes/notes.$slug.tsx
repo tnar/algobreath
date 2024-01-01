@@ -34,7 +34,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 export default function NotesSlug() {
   const { title, html } = useLoaderData<typeof loader>();
   return (
-    <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words">
+    <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words px-3 sm:px-0">
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>

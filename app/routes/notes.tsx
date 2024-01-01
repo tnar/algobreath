@@ -1,5 +1,6 @@
 import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData, useNavigate } from "@remix-run/react";
+import { useEffect } from "react";
 import { getNotes } from "~/models/note.server";
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
@@ -8,6 +9,16 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
 
 export default function Notes() {
   const { notes } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if there are any notes
+    if (notes.length > 0) {
+      // Redirect to the first note
+      navigate(notes[0].slug);
+    }
+  }, [navigate, notes]);
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
