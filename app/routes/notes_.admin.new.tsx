@@ -45,8 +45,6 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
   invariant(typeof markdown === "string", "markdown must be a string");
 
   await createNote(context, { title, slug, markdown });
-
-  return redirect("/notes/admin");
 };
 
 const inputClassName =
@@ -149,7 +147,7 @@ export default function NotesAdminNew() {
         </p>
       </Form>
       <div
-        className="prose"
+        className="prose prose-code:whitespace-pre-wrap prose-code:break-words px-2 sm:px-0"
         dangerouslySetInnerHTML={{ __html: convertedHtml }}
       />
     </div>

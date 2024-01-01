@@ -1,5 +1,6 @@
 import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData, useNavigate } from "@remix-run/react";
+import { useEffect } from "react";
 import { getNotes } from "~/models/note.server";
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
@@ -8,6 +9,12 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
 
 export default function NotesAdmin() {
   const { notes } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("new");
+  }, [navigate]);
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
