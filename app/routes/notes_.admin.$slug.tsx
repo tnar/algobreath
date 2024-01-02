@@ -1,10 +1,5 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import {
-  LinksFunction,
-  LoaderFunctionArgs,
-  json,
-  redirect,
-} from "@remix-run/cloudflare";
+import { LoaderFunctionArgs, json, redirect } from "@remix-run/cloudflare";
 import {
   Form,
   useActionData,
@@ -14,24 +9,7 @@ import {
 import invariant from "tiny-invariant";
 import { deleteNote, getNote, createNote } from "~/models/note.server";
 import React, { useEffect, useState } from "react";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js/lib/common";
-import styles from "highlight.js/styles/github-dark-dimmed.min.css";
-
-const marked = new Marked(
-  markedHighlight({
-    langPrefix: "hljs language-",
-    highlight(code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlight(code, { language }).value;
-    },
-  })
-);
-
-export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: styles }];
-};
+import marked from "~/utils/marked";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   invariant(params.slug, "params.slug is required");

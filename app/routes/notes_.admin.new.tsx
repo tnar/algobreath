@@ -1,27 +1,10 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { LinksFunction, json, redirect } from "@remix-run/cloudflare";
+import { json, redirect } from "@remix-run/cloudflare";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { createNote } from "~/models/note.server";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js/lib/common";
-import styles from "highlight.js/styles/github-dark-dimmed.min.css";
 import { useState } from "react";
-
-const marked = new Marked(
-  markedHighlight({
-    langPrefix: "hljs language-",
-    highlight(code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlight(code, { language }).value;
-    },
-  })
-);
-
-export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: styles }];
-};
+import marked from "~/utils/marked";
 
 export const action = async ({ request, context }: ActionFunctionArgs) => {
   const formData = await request.formData();
