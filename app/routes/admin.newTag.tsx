@@ -2,21 +2,18 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/cloudflare";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { createNote } from "~/models/note.server";
+import { createTag } from "~/models/tags.server";
 import { useState } from "react";
-import marked from "~/utils/marked";
 
 export const action = async ({ request, context }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
   const title = formData.get("title") as string;
   const slug = formData.get("slug") as string;
-  const markdown = formData.get("markdown") as string;
 
   const errors = {
     title: title ? null : "Title is required",
     slug: slug ? null : "Slug is required",
-    markdown: markdown ? null : "Markdown is required",
   };
   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
   if (hasErrors) {
@@ -25,25 +22,21 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 
   invariant(typeof title === "string", "title must be a string");
   invariant(typeof slug === "string", "slug must be a string");
-  invariant(typeof markdown === "string", "markdown must be a string");
 
-  await createNote(context, { title, slug, markdown });
+  await createTag(context, { title, slug });
 
-  return redirect(`/notes/admin/new`);
+  return redirect(`/admin`);
 };
 
 const inputClassName =
   "w-full rounded border border-gray-500 px-2 py-1 text-lg";
 
-export default function NotesAdminNew() {
+export default function AdminNewTag() {
   const errors = useActionData<typeof action>();
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
-  const [convertedHtml, setConvertedHtml] = useState("");
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
-
-  // Function to convert title to slug
 
   const titleToSlug = (title: string) => {
     return title
@@ -62,22 +55,12 @@ export default function NotesAdminNew() {
     setSlug(newTitle);
   };
 
-  const handleMarkdownChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    const newMarkdown = e.target.value;
-
-    // Convert the new markdown to HTML and update the state
-    const newHtml = marked.parse(newMarkdown as string);
-    setConvertedHtml(newHtml as string);
-  };
-
   return (
     <div className="flex flex-col lg:flex-row">
       <Form method="post" className="px-5">
-        <p>
+        <div>
           <label>
-            Note Title:{" "}
+            Tag Title:{" "}
             {errors?.title ? (
               <em className="text-red-600">{errors.title}</em>
             ) : null}
@@ -89,10 +72,10 @@ export default function NotesAdminNew() {
               onChange={handleTitleChange}
             />
           </label>
-        </p>
-        <p>
+        </div>
+        <div>
           <label>
-            Note Slug:{" "}
+            Tag Slug:{" "}
             {errors?.slug ? (
               <em className="text-red-600">{errors.slug}</em>
             ) : null}
@@ -104,37 +87,17 @@ export default function NotesAdminNew() {
               onChange={handleSlugChange}
             />
           </label>
-        </p>
-        <p>
-          <label htmlFor="markdown">
-            Markdown:{" "}
-            {errors?.markdown ? (
-              <em className="text-red-600">{errors.markdown}</em>
-            ) : null}
-          </label>
-          <br />
-          <textarea
-            id="markdown"
-            rows={20}
-            name="markdown"
-            className={`${inputClassName} font-mono`}
-            onChange={handleMarkdownChange} // Update state on change
-          />
-        </p>
-        <p className="text-right">
+        </div>
+        <div className="text-right my-5">
           <button
             type="submit"
             className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400 disabled:bg-blue-300"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Creating..." : "Create Note"}
+            {isSubmitting ? "Creating..." : "Create Tag"}
           </button>
-        </p>
+        </div>
       </Form>
-      <div
-        className="prose prose-code:whitespace-pre-wrap prose-code:break-words px-3 sm:px-0"
-        dangerouslySetInnerHTML={{ __html: convertedHtml }}
-      />
     </div>
   );
 }
