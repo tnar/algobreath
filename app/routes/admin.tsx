@@ -43,9 +43,12 @@ export default function Admin() {
       <div className="hidden sm:block px-3 py-4 overflow-y-auto">
         <ul className="menu bg-base-200 w-56 p-0 [&_li>*]:rounded-none">
           <li>
-            <Link to={""}>Untag</Link>
+            <Link to={"newTag"}>New Tag</Link>
           </li>
           <li className="menu-title">Tags</li>
+          <li>
+            <Link to={""}>Untag</Link>
+          </li>
           {tags.map((tag) => (
             <li key={tag.slug}>
               <Link
@@ -54,6 +57,17 @@ export default function Admin() {
               >
                 {tag.title}
               </Link>
+            </li>
+          ))}
+          <li className="menu-title">Edit Tags</li>
+          {tags.map((tag) => (
+            <li key={tag.slug}>
+              <NavLink
+                to={`tags/${tag.slug}`}
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                {tag.title}
+              </NavLink>
             </li>
           ))}
         </ul>

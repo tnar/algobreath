@@ -28,13 +28,12 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
   return redirect(`/admin`);
 };
 
-const inputClassName =
-  "w-full rounded border border-gray-500 px-2 py-1 text-lg";
-
 export default function AdminNewTag() {
   const errors = useActionData<typeof action>();
+
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
+
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
 
@@ -56,42 +55,46 @@ export default function AdminNewTag() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row w-full">
       <Form method="post" className="px-5">
         <div>
-          <label>
-            Tag Title:{" "}
-            {errors?.title ? (
-              <em className="text-red-600">{errors.title}</em>
-            ) : null}
-            <input
-              type="text"
-              name="title"
-              className={inputClassName}
-              value={title}
-              onChange={handleTitleChange}
-            />
+          <label className="label">
+            <span className="label-text">
+              Tag Title:{" "}
+              {errors?.title ? (
+                <em className="text-red-600">{errors.title}</em>
+              ) : null}
+            </span>
           </label>
+          <input
+            type="text"
+            name="title"
+            className="input input-bordered w-full max-w-xs"
+            value={title}
+            onChange={handleTitleChange}
+          />
         </div>
         <div>
-          <label>
-            Tag Slug:{" "}
-            {errors?.slug ? (
-              <em className="text-red-600">{errors.slug}</em>
-            ) : null}
-            <input
-              type="text"
-              name="slug"
-              className={inputClassName}
-              value={slug}
-              onChange={handleSlugChange}
-            />
+          <label className="label">
+            <span className="label-text">
+              Tag Slug:{" "}
+              {errors?.slug ? (
+                <em className="text-red-600">{errors.slug}</em>
+              ) : null}
+            </span>
           </label>
+          <input
+            type="text"
+            name="slug"
+            className="input input-bordered w-full max-w-xs"
+            value={slug}
+            onChange={handleSlugChange}
+          />
         </div>
         <div className="text-right my-5">
           <button
             type="submit"
-            className="rounded bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400 disabled:bg-blue-300"
+            className="btn btn-outline"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Creating..." : "Create Tag"}

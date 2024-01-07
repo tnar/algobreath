@@ -73,52 +73,59 @@ export default function AdminTagsSlug() {
   const isSubmitting = Boolean(navigation.state === "submitting");
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row w-full">
       <Form method="post" className="px-5">
         <input type="hidden" name="id" value={tag.id} />
         <div>
-          <label>
-            tag Title:{" "}
-            {errors?.title ? (
-              <em className="text-red-600">{errors.title}</em>
-            ) : null}
-            <input
-              type="text"
-              name="title"
-              className="input input-bordered w-full max-w-2xl"
-              value={title} // Controlled by state
-              onChange={handleTitleChange} // Update state on change
-            />
+          <label className="label">
+            <span className="label-text">
+              Tag Title:{" "}
+              {errors?.title ? (
+                <em className="text-red-600">{errors.title}</em>
+              ) : null}
+            </span>
           </label>
+          <input
+            type="text"
+            name="title"
+            className="input input-bordered w-full max-w-xs"
+            value={title}
+            onChange={handleTitleChange}
+          />
         </div>
         <div>
-          <label>
-            tag Slug:{" "}
-            {errors?.slug ? (
-              <em className="text-red-600">{errors.slug}</em>
-            ) : null}
-            <input
-              type="text"
-              name="slug"
-              className="input input-bordered w-full max-w-xs"
-              value={slug} // Controlled by state
-              onChange={handleSlugChange} // Update state on change
-            />
+          <label className="label">
+            <span className="label-text">
+              Tag Slug:{" "}
+              {errors?.slug ? (
+                <em className="text-red-600">{errors.slug}</em>
+              ) : null}
+            </span>
           </label>
+          <input
+            type="text"
+            name="slug"
+            className="input input-bordered w-full max-w-xs"
+            value={slug}
+            onChange={handleSlugChange}
+          />
         </div>
-        <div className="text-right">
-          <div className="my-5">
-            <button type="submit" className="btn" disabled={isSubmitting}>
+        <div className="text-right my-5">
+          <div>
+            <button
+              type="submit"
+              className="btn btn-outline"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Updating..." : "Update Tag"}
             </button>
           </div>
           <div>
-            {" "}
             <button
               type="submit"
               name="_action"
               value="delete"
-              className="btn btn-warning"
+              className="btn my-5"
               disabled={isSubmitting}
               onClick={(event) => {
                 if (!confirm("Are you sure you want to delete this tag?")) {
