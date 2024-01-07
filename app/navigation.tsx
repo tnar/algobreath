@@ -70,6 +70,11 @@ export default function Index() {
           <ul className="menu p-4 w-80 min-h-full bg-base-200 z-[1]">
             {/* Sidebar content here */}
             <li className="menu-title">Tags</li>
+            <li>
+              <Link to={`/notes`} className={tagSlug === null ? "active" : ""}>
+                Recent
+              </Link>
+            </li>
             {tags.map((tag) => (
               <li key={tag.slug}>
                 <Link
