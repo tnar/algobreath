@@ -189,20 +189,24 @@ export default function AdminNewNote() {
           />
         </div>
         <div className="text-right my-5">
-          <button
-            type="submit"
-            className="btn btn-outline"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Creating..." : "Create Note"}
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline my-5"
-            onClick={handleLatexClick}
-          >
-            Handle Latex
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="btn btn-outline"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating..." : "Create Note"}
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              className="btn btn-outline my-5"
+              onClick={handleLatexClick}
+            >
+              Handle Latex
+            </button>
+          </div>
         </div>
       </Form>
       <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-10 px-4 sm:px-0">

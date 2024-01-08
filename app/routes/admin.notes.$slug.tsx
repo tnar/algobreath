@@ -133,6 +133,27 @@ export default function AdminNotesSlug() {
     setHtml(newHtml);
   };
 
+  const handleLatexClick = async () => {
+    const markdown = document.getElementById("markdown") as HTMLTextAreaElement;
+    const newMarkdown = markdown.value.replace(
+      /\\(\(|\[)|\\(\)|\])/g,
+      (match) => {
+        switch (match) {
+          case "\\(":
+          case "\\)":
+            return "$";
+          case "\\[":
+          case "\\]":
+            return "$$";
+          default:
+            return match;
+        }
+      }
+    );
+    const newHtml = await marked.parse(newMarkdown);
+    setHtml(newHtml);
+  };
+
   return (
     <div className="flex flex-col lg:flex-row w-full">
       <Form method="post" className="px-5">
@@ -225,10 +246,19 @@ export default function AdminNotesSlug() {
           </div>
           <div>
             <button
+              type="button"
+              className="btn btn-outline my-5"
+              onClick={handleLatexClick}
+            >
+              Handle Latex
+            </button>
+          </div>
+          <div>
+            <button
               type="submit"
               name="_action"
               value="delete"
-              className="btn my-5"
+              className="btn"
               disabled={isSubmitting}
               onClick={(event) => {
                 if (!confirm("Are you sure you want to delete this note?")) {
