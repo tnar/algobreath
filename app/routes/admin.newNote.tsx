@@ -90,6 +90,27 @@ export default function AdminNewNote() {
     setHtml(newHtml);
   };
 
+  const handleLatexClick = async () => {
+    const markdown = document.getElementById("markdown") as HTMLTextAreaElement;
+    const newMarkdown = markdown.value.replace(
+      /\\(\(|\[)|\\(\)|\])/g,
+      (match) => {
+        switch (match) {
+          case "\\(":
+          case "\\)":
+            return "$";
+          case "\\[":
+          case "\\]":
+            return "$$";
+          default:
+            return match;
+        }
+      }
+    );
+    const newHtml = await marked.parse(newMarkdown);
+    setHtml(newHtml);
+  };
+
   return (
     <div className="flex flex-col lg:flex-row w-full">
       <Form method="post" className="px-5">
@@ -174,6 +195,13 @@ export default function AdminNewNote() {
             disabled={isSubmitting}
           >
             {isSubmitting ? "Creating..." : "Create Note"}
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline my-5"
+            onClick={handleLatexClick}
+          >
+            Handle Latex
           </button>
         </div>
       </Form>

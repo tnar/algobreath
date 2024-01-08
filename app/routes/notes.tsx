@@ -38,6 +38,18 @@ export const meta: MetaFunction = () => [
 export default function Index() {
   const { tags, notes, tagSlug } = useLoaderData<typeof loader>();
 
+  const filteredNotes = notes.map((note) => {
+    let title = note.title;
+    if (tagSlug === "typescript") {
+      title = title.replace(" in TypeScript", "");
+    } else if (tagSlug === "python") {
+      title = title.replace(" in Python", "");
+    } else if (tagSlug === "rust") {
+      title = title.replace(" in Rust", "");
+    }
+    return { ...note, title };
+  });
+
   return (
     <div className="flex flex-wrap sm:flex-row min-h-screen">
       <div className="hidden sm:block px-3 py-4 overflow-y-auto">
@@ -64,7 +76,7 @@ export default function Index() {
       <div className="hidden sm:block px-3 py-4 overflow-y-auto">
         <ul className="menu bg-base-200 w-56 p-0 [&_li>*]:rounded-none">
           <li className="menu-title">Notes</li>
-          {notes.map((note) => (
+          {filteredNotes.map((note) => (
             <li key={note.slug}>
               <NavLink
                 to={tagSlug ? `${note.slug}?tag=${tagSlug}` : note.slug}
