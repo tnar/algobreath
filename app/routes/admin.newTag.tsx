@@ -56,7 +56,7 @@ export default function AdminNewTag() {
 
   return (
     <div className="flex flex-col lg:flex-row w-full">
-      <Form method="post" className="px-5">
+      <Form method="post" className="p-4">
         <div>
           <label className="label">
             <span className="label-text">

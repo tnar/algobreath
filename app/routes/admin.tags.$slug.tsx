@@ -74,7 +74,7 @@ export default function AdminTagsSlug() {
 
   return (
     <div className="flex flex-col lg:flex-row w-full">
-      <Form method="post" className="px-5">
+      <Form method="post" className="p-4">
         <input type="hidden" name="id" value={tag.id} />
         <div>
           <label className="label">

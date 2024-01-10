@@ -150,13 +150,14 @@ export default function AdminNotesSlug() {
         }
       }
     );
+    setMarkdown(newMarkdown);
     const newHtml = await marked.parse(newMarkdown);
     setHtml(newHtml);
   };
 
   return (
     <div className="flex flex-col lg:flex-row w-full">
-      <Form method="post" className="px-5">
+      <Form method="post" className="p-4">
         <input type="hidden" name="id" value={note.id} />
         <input type="hidden" name="initTagIds" value={initTagIds} />
         <div>
