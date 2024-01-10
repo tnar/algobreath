@@ -1,9 +1,4 @@
-import {
-  json,
-  LoaderFunctionArgs,
-  MetaFunction,
-  redirect,
-} from "@remix-run/cloudflare";
+import { json, LoaderFunctionArgs, redirect } from "@remix-run/cloudflare";
 import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { getNotes, getNotesFromTag } from "~/models/notes.server";
 import { getTags } from "~/models/tags.server";
@@ -29,11 +24,6 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
 
   return json({ tags, notes, tagSlug });
 };
-
-export const meta: MetaFunction = () => [
-  { title: "New Remix App" },
-  { name: "description", content: "Welcome to Remix!" },
-];
 
 export default function Admin() {
   const { notes, tags, tagSlug } = useLoaderData<typeof loader>();
