@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@remix-run/react";
 import styles from "./tailwind.css";
 import Navigation from "./navigation";
@@ -25,15 +26,42 @@ export const links: LinksFunction = () => {
         "sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV",
       crossOrigin: "anonymous",
     },
+    { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32/32",
+      href: "/favicon-32x32.png",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "16/16",
+      href: "/favicon-16x16.png",
+    },
+    { rel: "manifest", href: "/site.webmanifest" },
   ];
 };
 
 export default function App() {
+  const location = useLocation();
+
+  const canonical = `https://www.algobreath.com${location.pathname}`;
+  const ogImage = "https://www.algobreath.com/og-image.png";
+
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="og:type" content="website" />
+        <meta name="og:image" content={ogImage} />
+        <meta name="og:url" content={canonical} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@tomtnar" />
+        <meta name="twitter:image" content={ogImage} />
+        <link rel="canonical" href={canonical} />
         <Meta />
         <Links />
       </head>

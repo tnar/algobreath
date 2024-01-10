@@ -18,10 +18,19 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   return json({ tags, notes, html });
 };
 
-export const meta: MetaFunction = () => [
-  { title: "New Remix App" },
-  { name: "description", content: "Welcome to Remix!" },
-];
+export const meta: MetaFunction = () => {
+  const title = "AlgoBreath";
+  const description = "";
+
+  return [
+    { title },
+    { name: "og:title", content: title },
+    { name: "twitter:title", content: title },
+    { name: "description", content: description },
+    { name: "og:description", content: description },
+    { name: "twitter:description", content: description },
+  ];
+};
 
 export default function Index() {
   const { tags, notes, html } = useLoaderData<typeof loader>();
@@ -51,7 +60,7 @@ export default function Index() {
       </div>
 
       <div className="flex-1 flex justify-center">
-        <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-10 px-4 sm:px-0">
+        <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-8 px-4 sm:px-0">
           <h1>{notes[0].title}</h1>
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>

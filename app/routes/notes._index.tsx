@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
@@ -18,7 +18,7 @@ export default function NotesSlug() {
   const { title, html } = useLoaderData<typeof loader>();
 
   return (
-    <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-10 px-4 sm:px-0">
+    <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-8 px-4 sm:px-0">
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>

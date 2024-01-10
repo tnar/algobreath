@@ -9,6 +9,22 @@ import { getNotes, getNotesFromTag } from "~/models/notes.server";
 import invariant from "tiny-invariant";
 import { getTags } from "~/models/tags.server";
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const title = data?.tagTitle
+    ? `${data?.tagTitle} - AlgoBreath`
+    : `Recent Notes - AlgoBreath`;
+  const description = "";
+
+  return [
+    { title },
+    { name: "og:title", content: title },
+    { name: "twitter:title", content: title },
+    { name: "description", content: description },
+    { name: "og:description", content: description },
+    { name: "twitter:description", content: description },
+  ];
+};
+
 export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const tags = await getTags(context);
   invariant(tags, "Tags not found");
@@ -16,10 +32,12 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
   const { searchParams } = new URL(request.url);
   const tagSlug = searchParams.get("tag");
   let notes;
+  let tagTitle;
   if (tagSlug) {
     const tagId: number | undefined = tags.find((t) => t.slug === tagSlug)?.id;
     if (tagId) {
       notes = await getNotesFromTag(context, tagId);
+      tagTitle = tags.find((t) => t.slug === tagSlug)?.title;
     } else {
       return redirect("/notes");
     }
@@ -27,13 +45,8 @@ export const loader = async ({ context, request }: LoaderFunctionArgs) => {
     notes = await getNotes(context);
   }
 
-  return json({ tags, notes, tagSlug });
+  return json({ tags, notes, tagSlug, tagTitle });
 };
-
-export const meta: MetaFunction = () => [
-  { title: "New Remix App" },
-  { name: "description", content: "Welcome to Remix!" },
-];
 
 export default function Index() {
   const { tags, notes, tagSlug } = useLoaderData<typeof loader>();

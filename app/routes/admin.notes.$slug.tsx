@@ -274,7 +274,7 @@ export default function AdminNotesSlug() {
           </div>
         </div>
       </Form>
-      <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-10 px-4 sm:px-0">
+      <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-8 px-4 sm:px-0">
         <h1>{title}</h1>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>

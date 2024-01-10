@@ -1,9 +1,23 @@
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getNote } from "~/models/notes.server";
 import marked from "~/utils/marked";
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const title = `${data?.title} - AlgoBreath`;
+  const description = "";
+
+  return [
+    { title },
+    { name: "og:title", content: title },
+    { name: "twitter:title", content: title },
+    { name: "description", content: description },
+    { name: "og:description", content: description },
+    { name: "twitter:description", content: description },
+  ];
+};
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   invariant(params.slug, "params.slug is required");
@@ -19,7 +33,7 @@ export default function NotesSlug() {
   const { title, html } = useLoaderData<typeof loader>();
 
   return (
-    <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-10 px-4 sm:px-0">
+    <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-8 px-4 sm:px-0">
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>
