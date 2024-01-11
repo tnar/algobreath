@@ -31,7 +31,7 @@ export default function Admin() {
   return (
     <div className="flex flex-wrap sm:flex-row min-h-screen">
       <div className="hidden sm:block px-3 py-4 overflow-y-auto">
-        <ul className="menu bg-base-200 w-56 p-0 [&_li>*]:rounded-none">
+        <ul className="menu bg-base-200 w-36 p-0 [&_li>*]:rounded-none">
           <li>
             <Link to={"newTag"}>New Tag</Link>
           </li>
