@@ -157,7 +157,7 @@ export default function AdminNotesSlug() {
 
   return (
     <div className="flex flex-col lg:flex-row w-full">
-      <Form method="post" className="p-4">
+      <Form method="post" className="p-2 w-96">
         <input type="hidden" name="id" value={note.id} />
         <input type="hidden" name="initTagIds" value={initTagIds} />
         <div>
@@ -274,9 +274,12 @@ export default function AdminNotesSlug() {
           </div>
         </div>
       </Form>
-      <div className="prose pt-8 px-4 sm:px-0">
-        <h1>{title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+
+      <div className="flex-1 overflow-x-auto">
+        <div className="prose max-w-none prose-headings:max-w-prose prose-p:max-w-prose prose-ol:max-w-prose prose-ul:max-w-prose prose-li::max-w-prose prose-pre:p-0 pt-8 px-4 sm:px-8 mx-auto">
+          <h1>{title}</h1>
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
       </div>
     </div>
   );

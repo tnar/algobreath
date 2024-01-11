@@ -86,7 +86,7 @@ export default function Admin() {
         </ul>
       </div>
 
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 overflow-x-auto">
         <Outlet context={{ tags }} />
       </div>
     </div>
