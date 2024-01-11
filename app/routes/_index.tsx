@@ -60,7 +60,7 @@ export default function Index() {
       </div>
 
       <div className="flex-1 flex justify-center">
-        <div className="prose prose-code:whitespace-pre-wrap prose-code:break-words pt-8 px-4 sm:px-0">
+        <div className="prose pt-8 px-4 sm:px-0">
           <h1>{notes[0].title}</h1>
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
