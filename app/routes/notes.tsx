@@ -65,7 +65,7 @@ export default function Index() {
 
   return (
     <div className="flex flex-row min-h-screen">
-      <div className="hidden lg:block px-3 py-4 overflow-y-auto">
+      <div className="hidden xl:block px-3 py-4 overflow-y-auto">
         <ul className="menu bg-base-200 w-56 p-0 [&_li>*]:rounded-none">
           <li className="menu-title">Tags</li>
           <li>
@@ -86,7 +86,7 @@ export default function Index() {
         </ul>
       </div>
 
-      <div className="hidden lg:block px-3 py-4 overflow-y-auto">
+      <div className="hidden xl:block px-3 py-4 overflow-y-auto">
         <ul className="menu bg-base-200 w-56 p-0 [&_li>*]:rounded-none">
           <li className="menu-title">Notes</li>
           {filteredNotes.map((note) => (
@@ -102,7 +102,7 @@ export default function Index() {
         </ul>
       </div>
 
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 overflow-x-auto">
         <Outlet />
       </div>
     </div>
