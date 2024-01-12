@@ -31,7 +31,8 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 
 export default function NotesSlug() {
   const { title, html, slug } = useLoaderData<typeof loader>();
-  const { notes } = useOutletContext() as { notes: NoteSlugAndTitle[] };
+  const { notes, tagSlug }: { notes: NoteSlugAndTitle[]; tagSlug: string } =
+    useOutletContext();
   const currentNoteIndex = notes.findIndex((note) => note.slug === slug);
   const prevNote = notes[currentNoteIndex - 1];
   const nextNote = notes[currentNoteIndex + 1];
@@ -43,7 +44,11 @@ export default function NotesSlug() {
       <p className="flex flex-wrap justify-between my-10">
         {prevNote ? (
           <Link
-            to={`/notes/${prevNote.slug}`}
+            to={
+              tagSlug
+                ? `/notes/${prevNote.slug}?tag=${tagSlug}`
+                : `/notes/${prevNote.slug}`
+            }
             className="btn btn-sm md:btn-md gap-2 lg:gap-3 mb-5 max-w-full"
           >
             <svg
@@ -69,7 +74,11 @@ export default function NotesSlug() {
         )}
         {nextNote && (
           <Link
-            to={`/notes/${nextNote.slug}`}
+            to={
+              tagSlug
+                ? `/notes/${nextNote.slug}?tag=${tagSlug}`
+                : `/notes/${nextNote.slug}`
+            }
             className="btn btn-sm md:btn-md gap-2 lg:gap-3 max-w-full"
           >
             <div className="flex flex-col items-end">
