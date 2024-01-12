@@ -3,7 +3,7 @@ import { Link } from "@remix-run/react";
 export default function Index() {
   return (
     <>
-      <footer className="footer p-10 text-base-content">
+      <footer className="footer bg-base-200 p-10 text-base-content">
         <nav>
           <header className="footer-title">Other sites</header>
           <a
@@ -83,7 +83,7 @@ export default function Index() {
           </div>
         </nav>
       </footer>
-      <footer className="footer footer-center pb-24 text-base-content">
+      <footer className="footer footer-center bg-base-200 pb-24 text-base-content">
         <aside>
           <p>© 2024 Tsutomu Narushima</p>
         </aside>

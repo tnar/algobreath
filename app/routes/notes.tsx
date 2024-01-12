@@ -103,7 +103,7 @@ export default function Index() {
       </div>
 
       <div className="flex-1 overflow-x-auto">
-        <Outlet />
+        <Outlet context={{ notes }} />
       </div>
     </div>
   );
