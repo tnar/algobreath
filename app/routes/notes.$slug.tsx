@@ -40,11 +40,11 @@ export default function NotesSlug() {
     <div className="prose max-w-none prose-headings:max-w-prose prose-p:max-w-prose prose-ol:max-w-prose prose-ul:max-w-prose prose-li::max-w-prose prose-pre:p-0 pt-8 px-4 sm:px-8 mx-auto">
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{ __html: html }} />
-      <p className="flex justify-between my-10">
+      <p className="flex flex-wrap justify-between my-10">
         {prevNote ? (
           <Link
             to={`/notes/${prevNote.slug}`}
-            className="btn btn-sm md:btn-md gap-2 lg:gap-3"
+            className="btn btn-sm md:btn-md gap-2 lg:gap-3 mb-5 max-w-full"
           >
             <svg
               className="h-6 w-6 fill-current md:h-8 md:w-8"
@@ -70,7 +70,7 @@ export default function NotesSlug() {
         {nextNote && (
           <Link
             to={`/notes/${nextNote.slug}`}
-            className="btn btn-sm md:btn-md gap-2 lg:gap-3"
+            className="btn btn-sm md:btn-md gap-2 lg:gap-3 max-w-full"
           >
             <div className="flex flex-col items-end">
               <span className="text-neutral-content/50 hidden text-xs font-normal md:block">

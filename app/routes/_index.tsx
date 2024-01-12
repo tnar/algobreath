@@ -63,6 +63,31 @@ export default function Index() {
         <div className="prose max-w-none prose-headings:max-w-prose prose-p:max-w-prose prose-ol:max-w-prose prose-ul:max-w-prose prose-li::max-w-prose prose-pre:p-0 pt-8 px-4 sm:px-8 mx-auto">
           <h1>{notes[0].title}</h1>
           <div dangerouslySetInnerHTML={{ __html: html }} />
+          <p className="flex flex-wrap justify-between my-10">
+            <div className="btn btn-sm md:btn-md gap-2 lg:gap-3 invisible">
+              {/* Placeholder */}
+            </div>
+            <Link
+              to={`/notes/${notes[1].slug}`}
+              className="btn btn-sm md:btn-md gap-2 lg:gap-3 max-w-full"
+            >
+              <div className="flex flex-col items-end">
+                <span className="text-neutral-content/50 hidden text-xs font-normal md:block">
+                  Next
+                </span>{" "}
+                <span>{notes[1].title}</span>
+              </div>{" "}
+              <svg
+                className="h-6 w-6 fill-current md:h-8 md:w-8"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+              </svg>
+            </Link>
+          </p>
         </div>
       </div>
     </div>
