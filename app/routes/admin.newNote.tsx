@@ -52,6 +52,7 @@ export default function AdminNewNote() {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [tagIds, setTagIds] = useState<string[]>([]);
+  const [markdown, setMarkdown] = useState("");
   const [html, setHtml] = useState("");
 
   const navigation = useNavigation();
@@ -86,6 +87,7 @@ export default function AdminNewNote() {
     target: { value: React.SetStateAction<string> };
   }) => {
     const newMarkdown = e.target.value as string;
+    setMarkdown(newMarkdown);
     const newHtml = await marked.parse(newMarkdown as string);
     setHtml(newHtml);
   };
@@ -107,6 +109,7 @@ export default function AdminNewNote() {
         }
       }
     );
+    setMarkdown(newMarkdown);
     const newHtml = await marked.parse(newMarkdown);
     setHtml(newHtml);
   };
@@ -185,6 +188,7 @@ export default function AdminNewNote() {
             rows={20}
             name="markdown"
             className="textarea textarea-bordered w-full font-mono"
+            value={markdown}
             onChange={handleMarkdownChange}
           />
         </div>
