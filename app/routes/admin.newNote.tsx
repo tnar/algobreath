@@ -62,6 +62,7 @@ export default function AdminNewNote() {
     return title
       .toLowerCase()
       .replace(/\s+/g, "-")
+      .replace(/_/g, "-")
       .replace(/[^\w-]+/g, "");
   };
 

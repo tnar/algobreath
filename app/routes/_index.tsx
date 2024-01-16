@@ -40,6 +40,9 @@ export default function Index() {
       <div className="hidden xl:block mx-3 my-4 overflow-y-auto h-screen">
         <ul className="menu bg-base-200 w-36 p-0 [&_li>*]:rounded-none">
           <li className="menu-title">Tags</li>
+          <li>
+            <Link to={`/notes`}>Recent</Link>
+          </li>
           {tags.map((tag) => (
             <li key={tag.slug}>
               <Link to={`notes?tag=${tag.slug}`}>{tag.title}</Link>
