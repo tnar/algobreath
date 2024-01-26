@@ -82,14 +82,14 @@ export default function AdminNewNote() {
       (option) => option.value
     );
     if (newTags.includes("3")) {
-      setTitle(title.concat(" in Python"));
-      const newMarkdown = "```python\n" + markdown + "\n```";
+      setTitle(title.concat(" in TypeScript"));
+      const newMarkdown = "```ts\n" + markdown + "\n```";
       setMarkdown(newMarkdown);
       const newHtml = await marked.parse(newMarkdown as string);
       setHtml(newHtml);
     } else if (newTags.includes("4")) {
-      setTitle(title.concat(" in TypeScript"));
-      const newMarkdown = "```ts\n" + markdown + "\n```";
+      setTitle(title.concat(" in Python"));
+      const newMarkdown = "```python\n" + markdown + "\n```";
       setMarkdown(newMarkdown);
       const newHtml = await marked.parse(newMarkdown as string);
       setHtml(newHtml);
