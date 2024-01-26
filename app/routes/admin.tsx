@@ -37,7 +37,7 @@ export default function Admin() {
           </li>
           <li className="menu-title">Tags</li>
           <li>
-            <Link to={""}>Untag</Link>
+            <Link to={""}>Recent</Link>
           </li>
           {tags.map((tag) => (
             <li key={tag.slug}>
@@ -49,6 +49,7 @@ export default function Admin() {
               </Link>
             </li>
           ))}
+          <div className="divider"></div>
           <li className="menu-title">Edit Tags</li>
           {tags.map((tag) => (
             <li key={tag.slug}>

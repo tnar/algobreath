@@ -77,10 +77,29 @@ export default function AdminNewNote() {
     setSlug(newSlug);
   };
 
-  const handleTagsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTagsChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newTags = Array.from(e.target.selectedOptions).map(
       (option) => option.value
     );
+    if (newTags.includes("3")) {
+      setTitle(title.concat(" in Python"));
+      const newMarkdown = "```python\n" + markdown + "\n```";
+      setMarkdown(newMarkdown);
+      const newHtml = await marked.parse(newMarkdown as string);
+      setHtml(newHtml);
+    } else if (newTags.includes("4")) {
+      setTitle(title.concat(" in TypeScript"));
+      const newMarkdown = "```ts\n" + markdown + "\n```";
+      setMarkdown(newMarkdown);
+      const newHtml = await marked.parse(newMarkdown as string);
+      setHtml(newHtml);
+    } else if (newTags.includes("5")) {
+      setTitle(title.concat(" in Rust"));
+      const newMarkdown = "```rust\n" + markdown + "\n```";
+      setMarkdown(newMarkdown);
+      const newHtml = await marked.parse(newMarkdown as string);
+      setHtml(newHtml);
+    }
     setTagIds(newTags);
   };
 
