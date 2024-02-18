@@ -47,7 +47,11 @@ export const links: LinksFunction = () => {
 export default function App() {
   const location = useLocation();
 
-  const canonical = `https://www.algobreath.com${location.pathname}`;
+  const canonicalPath = location.pathname.endsWith("/")
+    ? location.pathname.slice(0, -1)
+    : location.pathname;
+  const canonical = `https://www.algobreath.com${canonicalPath}`;
+
   const ogImage = "https://www.algobreath.com/og-image.png";
 
   return (

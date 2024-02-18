@@ -7,6 +7,20 @@ export default function Index() {
         <nav>
           <header className="footer-title">Other sites</header>
           <a
+            href="https://www.breakingprompt.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Breaking Prompt
+          </a>
+          <a
+            href="https://www.editdit.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Editdit
+          </a>
+          <a
             href="https://www.jemoticons.com/"
             target="_blank"
             rel="noopener noreferrer"
@@ -33,13 +47,6 @@ export default function Index() {
             rel="noopener noreferrer"
           >
             Emoji & Symbols
-          </a>
-          <a
-            href="https://www.editdit.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Editdit
           </a>
         </nav>
         <nav>

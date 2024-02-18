@@ -65,9 +65,8 @@ export default function Index() {
               </label>
             </div>
             <div className="flex-1 px-2 mx-2">
-              {" "}
               <Link className="btn btn-ghost text-xl" to="/">
-                AlgoBreath
+                <h1>AlgoBreath</h1>
               </Link>
             </div>
             <div className="flex-none hidden lg:block">
